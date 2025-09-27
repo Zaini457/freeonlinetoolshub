@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Online Tools Hub</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Free Online Tools Hub: Loan EMI Calculator, Age Calculator, and QR Code Generator – all in one page.">
+  <meta name="keywords" content="EMI Calculator, Age Calculator, QR Code Generator, Online Tools, Free Tools">
+  <meta name="author" content="Your Name">
+
+  <!-- Open Graph (Social Media Preview) -->
+  <meta property="og:title" content="Free Online Tools Hub">
+  <meta property="og:description" content="Use free online tools: Loan EMI Calculator, Age Calculator, and QR Code Generator in one page.">
+  <meta property="og:image" content="preview.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://YOUR-USERNAME.github.io/free-online-tools/">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Online Tools Hub">
+  <meta name="twitter:description" content="Calculate EMI, check your age, and generate QR codes instantly.">
+  <meta name="twitter:image" content="preview.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+      color: #333;
+      text-align: center;
+    }
+    header {
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: white;
+      padding: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    section {
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 80%;
+      max-width: 300px;
+    }
+    button {
+      background: #4facfe;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #00c6ff;
+    }
+    footer {
+      background: #222;
+      color: white;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>🚀 Free Online Tools Hub</header>
+
+  <!-- EMI Calculator -->
+  <section>
+    <h2>💰 Loan EMI Calculator</h2>
+    <input type="number" id="loan" placeholder="Loan Amount">
+    <input type="number" id="rate" placeholder="Interest Rate (%)">
+    <input type="number" id="time" placeholder="Time (years)">
+    <button onclick="calculateEMI()">Calculate EMI</button>
+    <p id="emiResult"></p>
+  </section>
+
+  <!-- Age Calculator -->
+  <section>
+    <h2>🎂 Age Calculator</h2>
+    <input type="date" id="dob">
+    <button onclick="calculateAge()">Calculate Age</button>
+    <p id="ageResult"></p>
+  </section>
+
+  <!-- QR Code Generator -->
+  <section>
+    <h2>🔗 QR Code Generator</h2>
+    <input type="text" id="qrText" placeholder="Enter text or URL">
+    <button onclick="generateQR()">Generate QR</button>
+    <br><br>
+    <canvas id="qrCanvas"></canvas>
+  </section>
+
+  <footer>© 2025 Free Online Tools Hub | Built by Zainab Bilal 🚀</footer>
+
+  <!-- JS Functions -->
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+  <script>
+    function calculateEMI() {
+      let loan = document.getElementById('loan').value;
+      let rate = document.getElementById('rate').value / 100 / 12;
+      let time = document.getElementById('time').value * 12;
+      if (loan && rate && time) {
+        let emi = (loan * rate * Math.pow(1 + rate, time)) / (Math.pow(1 + rate, time) - 1);
+        document.getElementById('emiResult').innerText = "Monthly EMI: ₹" + emi.toFixed(2);
+      } else {
+        document.getElementById('emiResult').innerText = "Please enter all values.";
+      }
+    }
+
+    function calculateAge() {
+      let dob = document.getElementById('dob').value;
+      if (dob) {
+        let birthDate = new Date(dob);
+        let today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        document.getElementById('ageResult').innerText = "Your Age: " + age + " years";
+      } else {
+        document.getElementById('ageResult').innerText = "Please select your birthdate.";
+      }
+    }
+
+    function generateQR() {
+      let qrText = document.getElementById('qrText').value;
+      if (qrText) {
+        let qr = new QRious({
+          element: document.getElementById('qrCanvas'),
+          value: qrText,
+          size: 200
+        });
+      }
+    }
+  </script>
+</body>
+</html>
